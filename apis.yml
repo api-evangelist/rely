@@ -1,0 +1,44 @@
+aid: rely
+name: Rely.io
+description: >-
+  Rely.io is an internal developer portal that aggregates engineering data,
+  provides service catalogs, scorecards, and workflow automation for platform
+  engineering teams.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Developer Experience
+  - Internal Developer Portal
+  - Platform Engineering
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/rely/refs/heads/main/apis.yml
+created: '2026-03-27'
+modified: '2026-03-27'
+specificationVersion: '0.19'
+apis:
+  - aid: rely:rely
+    name: Rely.io
+    description: >-
+      Rely.io is an internal developer portal that aggregates engineering data,
+      provides service catalogs, scorecards, and workflow automation for
+      platform engineering teams.
+    humanURL: https://www.rely.io
+    tags:
+      - Developer Experience
+      - Internal Developer Portal
+      - Platform Engineering
+    properties:
+      - type: Documentation
+        url: https://docs.rely.io
+      - type: Getting Started
+        url: https://docs.rely.io/getting-started
+common:
+  - type: Website
+    url: https://www.rely.io
+  - type: Documentation
+    url: https://docs.rely.io
+  - type: GitHub Organization
+    url: https://github.com/nicholasgriffintn/rely
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
