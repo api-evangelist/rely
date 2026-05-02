@@ -1,0 +1,953 @@
+openapi: 3.1.0
+info:
+  title: Rely.io Public API
+  description: >-
+    The Rely.io Public API provides programmatic access to all features of the
+    Rely.io Internal Developer Portal platform. Full CRUD operations are
+    available for software catalog entities, blueprints, scorecards,
+    self-service actions, and automations. Every action available through the
+    Rely.io web interface can also be performed via this REST API.
+    Authentication uses a long-lived API key (Bearer token) generated in the
+    Rely.io Plugins settings page.
+  version: '1.0.0'
+  contact:
+    name: Rely.io Support
+    email: support@rely.io
+    url: https://docs.rely.io
+  termsOfService: https://www.rely.io/terms
+externalDocs:
+  description: Rely.io API Documentation
+  url: https://docs.rely.io/public-api
+servers:
+  - url: https://api.rely.io
+    description: Production Server
+tags:
+  - name: Blueprints
+    description: >-
+      Manage blueprint schemas that define the structure and attributes of
+      catalog entities such as services, teams, and resources.
+  - name: Entities
+    description: >-
+      Manage catalog entity instances — the individual services, teams,
+      deployments, and resources tracked in the software catalog.
+  - name: Scorecards
+    description: >-
+      Define and manage engineering scorecards that track adoption of
+      standards and production readiness across services.
+  - name: Self-Service Actions
+    description: >-
+      Configure developer self-service actions that automate infrastructure
+      provisioning, service scaffolding, and deployment workflows.
+  - name: Automations
+    description: >-
+      Manage automation rules that trigger workflows based on catalog
+      entity changes or external events via plugin integrations.
+  - name: Users
+    description: Manage user accounts and invitations in the organization.
+security:
+  - bearerAuth: []
+paths:
+  /api/v1/blueprints:
+    get:
+      operationId: listBlueprints
+      summary: List Blueprints
+      description: >-
+        Retrieve all blueprint schemas defined in the organization's developer
+        portal. Blueprints define the structure, properties, and relations
+        for catalog entity types.
+      tags:
+        - Blueprints
+      responses:
+        '200':
+          description: List of blueprints
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Blueprint'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createBlueprint
+      summary: Create Blueprint
+      description: >-
+        Create a new blueprint schema defining a type of catalog entity.
+        Blueprints use an OpenAPI 3-compatible JSON descriptor with
+        Rely.io-specific extensions for properties and relations.
+      tags:
+        - Blueprints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlueprintRequest'
+      responses:
+        '201':
+          description: Blueprint created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blueprint'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/blueprints/{blueprintId}:
+    get:
+      operationId: getBlueprint
+      summary: Get Blueprint
+      description: Retrieve a specific blueprint schema by its identifier.
+      tags:
+        - Blueprints
+      parameters:
+        - $ref: '#/components/parameters/BlueprintId'
+      responses:
+        '200':
+          description: Blueprint details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blueprint'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateBlueprint
+      summary: Update Blueprint
+      description: Update an existing blueprint schema.
+      tags:
+        - Blueprints
+      parameters:
+        - $ref: '#/components/parameters/BlueprintId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlueprintRequest'
+      responses:
+        '200':
+          description: Blueprint updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blueprint'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteBlueprint
+      summary: Delete Blueprint
+      description: >-
+        Delete a blueprint schema. All entities of this blueprint type
+        must be deleted first.
+      tags:
+        - Blueprints
+      parameters:
+        - $ref: '#/components/parameters/BlueprintId'
+      responses:
+        '204':
+          description: Blueprint deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/v1/blueprints/{blueprintId}/entities:
+    get:
+      operationId: listEntities
+      summary: List Entities
+      description: >-
+        Retrieve all catalog entity instances of a specific blueprint type.
+        Returns services, teams, deployments, or other resources tracked
+        in the software catalog.
+      tags:
+        - Entities
+      parameters:
+        - $ref: '#/components/parameters/BlueprintId'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/SizeParam'
+      responses:
+        '200':
+          description: List of entities
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Entity'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createEntity
+      summary: Create Entity
+      description: >-
+        Create a new catalog entity instance of the specified blueprint type.
+        Entity properties must conform to the blueprint schema.
+      tags:
+        - Entities
+      parameters:
+        - $ref: '#/components/parameters/BlueprintId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityRequest'
+      responses:
+        '201':
+          description: Entity created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entity'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/blueprints/{blueprintId}/entities/{entityId}:
+    get:
+      operationId: getEntity
+      summary: Get Entity
+      description: Retrieve a specific catalog entity by its identifier.
+      tags:
+        - Entities
+      parameters:
+        - $ref: '#/components/parameters/BlueprintId'
+        - $ref: '#/components/parameters/EntityId'
+      responses:
+        '200':
+          description: Entity details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entity'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateEntity
+      summary: Update Entity
+      description: Update an existing catalog entity's properties and relations.
+      tags:
+        - Entities
+      parameters:
+        - $ref: '#/components/parameters/BlueprintId'
+        - $ref: '#/components/parameters/EntityId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityRequest'
+      responses:
+        '200':
+          description: Entity updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entity'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteEntity
+      summary: Delete Entity
+      description: Delete a catalog entity from the software catalog.
+      tags:
+        - Entities
+      parameters:
+        - $ref: '#/components/parameters/BlueprintId'
+        - $ref: '#/components/parameters/EntityId'
+      responses:
+        '204':
+          description: Entity deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/v1/scorecards:
+    get:
+      operationId: listScorecards
+      summary: List Scorecards
+      description: >-
+        Retrieve all scorecards defined in the organization. Scorecards
+        evaluate services against engineering standards such as production
+        readiness, DORA metrics, and observability requirements.
+      tags:
+        - Scorecards
+      responses:
+        '200':
+          description: List of scorecards
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Scorecard'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createScorecard
+      summary: Create Scorecard
+      description: >-
+        Create a new engineering scorecard with rules and thresholds for
+        evaluating services.
+      tags:
+        - Scorecards
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScorecardRequest'
+      responses:
+        '201':
+          description: Scorecard created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scorecard'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/scorecards/{scorecardId}:
+    get:
+      operationId: getScorecard
+      summary: Get Scorecard
+      description: Retrieve a specific scorecard and its rules.
+      tags:
+        - Scorecards
+      parameters:
+        - $ref: '#/components/parameters/ScorecardId'
+      responses:
+        '200':
+          description: Scorecard details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scorecard'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateScorecard
+      summary: Update Scorecard
+      description: Update an existing scorecard's rules and configuration.
+      tags:
+        - Scorecards
+      parameters:
+        - $ref: '#/components/parameters/ScorecardId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScorecardRequest'
+      responses:
+        '200':
+          description: Scorecard updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scorecard'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteScorecard
+      summary: Delete Scorecard
+      description: Delete a scorecard from the organization.
+      tags:
+        - Scorecards
+      parameters:
+        - $ref: '#/components/parameters/ScorecardId'
+      responses:
+        '204':
+          description: Scorecard deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/v1/actions:
+    get:
+      operationId: listActions
+      summary: List Self-Service Actions
+      description: >-
+        Retrieve all self-service actions defined in the organization.
+        Self-service actions enable developers to scaffold services, provision
+        cloud resources, and trigger deployments independently.
+      tags:
+        - Self-Service Actions
+      responses:
+        '200':
+          description: List of self-service actions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Action'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createAction
+      summary: Create Self-Service Action
+      description: >-
+        Create a new self-service action. Actions are defined as OpenAPI 3
+        spec files with Rely.io-specific extensions for execution configuration.
+      tags:
+        - Self-Service Actions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionRequest'
+      responses:
+        '201':
+          description: Action created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/actions/{actionId}:
+    get:
+      operationId: getAction
+      summary: Get Self-Service Action
+      description: Retrieve a specific self-service action configuration.
+      tags:
+        - Self-Service Actions
+      parameters:
+        - $ref: '#/components/parameters/ActionId'
+      responses:
+        '200':
+          description: Action details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateAction
+      summary: Update Self-Service Action
+      description: Update a self-service action configuration.
+      tags:
+        - Self-Service Actions
+      parameters:
+        - $ref: '#/components/parameters/ActionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionRequest'
+      responses:
+        '200':
+          description: Action updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteAction
+      summary: Delete Self-Service Action
+      description: Delete a self-service action from the organization.
+      tags:
+        - Self-Service Actions
+      parameters:
+        - $ref: '#/components/parameters/ActionId'
+      responses:
+        '204':
+          description: Action deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /api/v1/automations:
+    get:
+      operationId: listAutomations
+      summary: List Automations
+      description: >-
+        Retrieve all automation rules defined in the organization. Automations
+        trigger workflows based on entity catalog changes or external events.
+      tags:
+        - Automations
+      responses:
+        '200':
+          description: List of automations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Automation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createAutomation
+      summary: Create Automation
+      description: Create a new automation rule triggered by catalog events.
+      tags:
+        - Automations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutomationRequest'
+      responses:
+        '201':
+          description: Automation created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Automation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/legacy/users/invite:
+    post:
+      operationId: inviteUser
+      summary: Invite User
+      description: >-
+        Send an invitation email to a new user to join the organization's
+        Rely.io developer portal.
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInviteRequest'
+      responses:
+        '200':
+          description: Invitation sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInviteResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Long-lived API key generated in the Rely.io Plugins settings page.
+        Valid for 10 years. Include as Bearer token in Authorization header.
+  parameters:
+    BlueprintId:
+      name: blueprintId
+      in: path
+      required: true
+      description: Unique identifier of the blueprint
+      schema:
+        type: string
+    EntityId:
+      name: entityId
+      in: path
+      required: true
+      description: Unique identifier of the entity
+      schema:
+        type: string
+    ScorecardId:
+      name: scorecardId
+      in: path
+      required: true
+      description: Unique identifier of the scorecard
+      schema:
+        type: string
+    ActionId:
+      name: actionId
+      in: path
+      required: true
+      description: Unique identifier of the self-service action
+      schema:
+        type: string
+    PageParam:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    SizeParam:
+      name: size
+      in: query
+      description: Number of results per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+  schemas:
+    Blueprint:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Globally unique blueprint identifier
+        name:
+          type: string
+          description: User-friendly display name
+        description:
+          type: string
+          description: Optional overview of what this blueprint represents
+        properties:
+          type: object
+          description: JSON Schema-compatible property definitions for entities of this type
+          additionalProperties:
+            $ref: '#/components/schemas/BlueprintProperty'
+        relations:
+          type: object
+          description: Relation definitions linking this blueprint to other blueprints
+          additionalProperties:
+            $ref: '#/components/schemas/BlueprintRelation'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    BlueprintProperty:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Display name for the property
+        type:
+          type: string
+          description: JSON Schema type (string, integer, boolean, array, object)
+        description:
+          type: string
+          description: Description of the property
+        enum:
+          type: array
+          items: {}
+          description: Allowed values for enum properties
+        format:
+          type: string
+          description: JSON Schema format (date-time, uri, email, etc.)
+    BlueprintRelation:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Display name for the relation
+        target:
+          type: string
+          description: Target blueprint identifier
+        many:
+          type: boolean
+          description: Whether this is a one-to-many relation
+        description:
+          type: string
+          description: Description of the relation
+    BlueprintRequest:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+          description: Globally unique blueprint identifier
+        name:
+          type: string
+        description:
+          type: string
+        properties:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/BlueprintProperty'
+        relations:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/BlueprintRelation'
+    Entity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique entity identifier
+        blueprintId:
+          type: string
+          description: The blueprint type this entity belongs to
+        name:
+          type: string
+          description: Entity display name
+        properties:
+          type: object
+          description: Property values conforming to the blueprint schema
+          additionalProperties: true
+        relations:
+          type: object
+          description: Related entity identifiers
+          additionalProperties: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    EntityRequest:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        properties:
+          type: object
+          additionalProperties: true
+        relations:
+          type: object
+          additionalProperties: true
+    Scorecard:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique scorecard identifier
+        name:
+          type: string
+          description: Scorecard display name
+        description:
+          type: string
+        blueprintId:
+          type: string
+          description: Blueprint this scorecard evaluates
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScorecardRule'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    ScorecardRule:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Rule display name
+        description:
+          type: string
+        level:
+          type: string
+          description: Maturity level (bronze, silver, gold, etc.)
+        condition:
+          type: object
+          description: Rule evaluation condition expression
+    ScorecardRequest:
+      type: object
+      required:
+        - name
+        - blueprintId
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        blueprintId:
+          type: string
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScorecardRule'
+    Action:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique action identifier
+        name:
+          type: string
+          description: Action display name
+        description:
+          type: string
+        blueprintId:
+          type: string
+          description: Blueprint this action applies to
+        trigger:
+          type: string
+          description: Action trigger type (manual, webhook, scheduled)
+        userInputs:
+          type: object
+          description: Input schema for the action form
+        invocationMethod:
+          type: object
+          description: Execution method (webhook, GitHub Actions, GitLab, etc.)
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    ActionRequest:
+      type: object
+      required:
+        - name
+        - blueprintId
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        blueprintId:
+          type: string
+        trigger:
+          type: string
+        userInputs:
+          type: object
+        invocationMethod:
+          type: object
+    Automation:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        trigger:
+          type: object
+          description: Automation trigger condition
+        action:
+          type: object
+          description: Action to execute when triggered
+        enabled:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+    AutomationRequest:
+      type: object
+      required:
+        - name
+        - trigger
+        - action
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        trigger:
+          type: object
+        action:
+          type: object
+        enabled:
+          type: boolean
+          default: true
+    UserInviteRequest:
+      type: object
+      required:
+        - name
+        - email
+      properties:
+        name:
+          type: string
+          description: User's full name
+        email:
+          type: string
+          format: email
+          description: User's email address
+    UserInviteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+        page:
+          type: integer
+        size:
+          type: integer
+        hasMore:
+          type: boolean
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

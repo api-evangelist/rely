@@ -1,0 +1,42 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.rely.io/api/v1/blueprints/service/entities",
+    "headers": {
+      "Authorization": "Bearer {api_key}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "id": "payment-service",
+      "name": "Payment Service",
+      "properties": {
+        "handles-pii": true,
+        "unit-tests-coverage": 85,
+        "lifecycle": "production"
+      },
+      "relations": {
+        "team": "platform-team",
+        "dependencies": ["auth-service", "notification-service"]
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "id": "payment-service",
+      "blueprintId": "service",
+      "name": "Payment Service",
+      "properties": {
+        "handles-pii": true,
+        "unit-tests-coverage": 85,
+        "lifecycle": "production"
+      },
+      "relations": {
+        "team": "platform-team",
+        "dependencies": ["auth-service", "notification-service"]
+      },
+      "createdAt": "2026-05-02T10:00:00Z",
+      "updatedAt": "2026-05-02T10:00:00Z"
+    }
+  }
+}

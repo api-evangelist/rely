@@ -1,0 +1,141 @@
+vocabulary:
+  provider: Rely.io
+  description: >-
+    Domain vocabulary for the Rely.io Internal Developer Portal platform —
+    covering software catalog management, engineering scorecards, self-service
+    actions, and platform engineering concepts.
+  terms:
+    - term: Internal Developer Portal (IDP)
+      definition: >-
+        A centralized platform that aggregates engineering data, provides
+        self-service capabilities to developers, and creates a unified view
+        of the software catalog for platform engineering teams.
+      tags:
+        - Platform Engineering
+        - Developer Experience
+
+    - term: Blueprint
+      definition: >-
+        A schema that defines the structure, properties, and relations for a
+        type of catalog entity in Rely.io. Similar to a class or type definition,
+        blueprints define what fields a Service, Team, or Deployment can have.
+      tags:
+        - Catalog
+        - Schema
+
+    - term: Entity
+      definition: >-
+        An instance of a blueprint in the Rely.io software catalog. Each entity
+        represents a specific service, team, infrastructure resource, or other
+        cataloged item with concrete property values.
+      tags:
+        - Catalog
+        - Entities
+
+    - term: Scorecard
+      definition: >-
+        An engineering maturity evaluation framework that defines rules and
+        thresholds for assessing services against standards such as production
+        readiness, DORA metrics, observability, and security practices.
+      tags:
+        - Scorecards
+        - Engineering Standards
+
+    - term: Scorecard Level
+      definition: >-
+        A maturity tier within a scorecard (e.g., Bronze, Silver, Gold) that
+        groups related rules. Services must pass all rules at a level to
+        achieve that level's score.
+      tags:
+        - Scorecards
+        - Engineering Standards
+
+    - term: Self-Service Action
+      definition: >-
+        A developer-facing workflow in Rely.io that enables engineers to
+        scaffold services, provision resources, or trigger deployments
+        independently without opening platform team tickets.
+      tags:
+        - Self-Service
+        - Developer Experience
+
+    - term: Invocation Method
+      definition: >-
+        The execution mechanism for a self-service action. Supports
+        webhooks, GitHub Actions, GitLab CI, Jenkins, and other CI/CD
+        tools as execution targets.
+      tags:
+        - Self-Service
+        - Integrations
+
+    - term: Automation
+      definition: >-
+        A rule in Rely.io that automatically triggers an action when a
+        catalog entity changes or an external event occurs, enabling
+        hands-free portal maintenance.
+      tags:
+        - Automation
+        - Platform Engineering
+
+    - term: Plugin
+      definition: >-
+        A Rely.io integration component (built on the Galaxy framework)
+        that syncs data from external tools (GitHub, Datadog, PagerDuty,
+        AWS, etc.) into the software catalog in real time.
+      tags:
+        - Integrations
+        - Plugins
+
+    - term: Galaxy Framework
+      definition: >-
+        Rely.io's open-source integration framework for building plugins
+        that connect third-party APIs to the Rely.io data model. Built in
+        Python and uses JQ syntax for data mapping.
+      tags:
+        - Integrations
+        - Open Source
+
+    - term: Relation
+      definition: >-
+        A typed connection between two blueprint types or entity instances
+        in the catalog. Relations can be one-to-one or one-to-many and
+        enable dependency mapping and ownership tracking.
+      tags:
+        - Catalog
+        - Schema
+
+    - term: GitOps
+      definition: >-
+        A Rely.io operating mode where blueprints, entities, scorecards,
+        and actions are managed as YAML/JSON files in Git repositories,
+        enabling version control of portal configuration.
+      tags:
+        - GitOps
+        - Configuration
+
+    - term: DORA Metrics
+      definition: >-
+        The four key DevOps Research and Assessment metrics — deployment
+        frequency, lead time for changes, change failure rate, and time to
+        restore service — trackable via Rely.io scorecards.
+      tags:
+        - Scorecards
+        - DevOps
+
+    - term: Production Readiness
+      definition: >-
+        A composite assessment of whether a service meets standards for
+        safe operation in production, including on-call coverage, runbooks,
+        SLO definitions, monitoring, and deployment frequency.
+      tags:
+        - Scorecards
+        - Operations
+
+    - term: Service Ownership
+      definition: >-
+        The mapping of a service entity to its owning team, including
+        on-call rotation, documentation, and communication channels,
+        tracked as entity relations in the software catalog.
+      tags:
+        - Catalog
+        - Operations

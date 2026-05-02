@@ -1,0 +1,83 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "rely": "https://api-evangelist.github.io/rely/vocab/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "SoftwareApplication": "schema:SoftwareApplication",
+    "Organization": "schema:Organization",
+    "CreativeWork": "schema:CreativeWork",
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "identifier": "schema:identifier",
+
+    "Blueprint": {
+      "@id": "rely:Blueprint",
+      "@type": "@id",
+      "comment": "A schema defining the structure and properties of a catalog entity type"
+    },
+    "CatalogEntity": {
+      "@id": "rely:CatalogEntity",
+      "@type": "@id",
+      "comment": "An instance of a blueprint in the Rely.io software catalog (service, team, deployment, etc.)"
+    },
+    "Scorecard": {
+      "@id": "rely:Scorecard",
+      "@type": "@id",
+      "comment": "An engineering scorecard that evaluates services against defined standards"
+    },
+    "ScorecardRule": {
+      "@id": "rely:ScorecardRule",
+      "@type": "@id",
+      "comment": "An individual rule within a scorecard at a specific maturity level"
+    },
+    "SelfServiceAction": {
+      "@id": "rely:SelfServiceAction",
+      "@type": "@id",
+      "comment": "A developer self-service action for scaffolding, provisioning, or deploying"
+    },
+    "Automation": {
+      "@id": "rely:Automation",
+      "@type": "@id",
+      "comment": "An automation rule triggered by catalog entity changes or external events"
+    },
+    "blueprintId": {
+      "@id": "rely:blueprintId",
+      "@type": "xsd:string",
+      "comment": "The identifier of the blueprint type"
+    },
+    "entityId": {
+      "@id": "rely:entityId",
+      "@type": "xsd:string",
+      "comment": "The unique identifier of a catalog entity"
+    },
+    "properties": {
+      "@id": "rely:properties",
+      "@type": "@id",
+      "comment": "The property values of a catalog entity or schema definitions of a blueprint"
+    },
+    "relations": {
+      "@id": "rely:relations",
+      "@type": "@id",
+      "comment": "Relations linking an entity or blueprint to other entities or blueprints"
+    },
+    "scorecardLevel": {
+      "@id": "rely:scorecardLevel",
+      "@type": "xsd:string",
+      "comment": "The maturity level of a scorecard rule (bronze, silver, gold)"
+    },
+    "invocationMethod": {
+      "@id": "rely:invocationMethod",
+      "@type": "xsd:string",
+      "comment": "The execution method for a self-service action (webhook, GitHub Actions, GitLab, etc.)"
+    },
+    "triggerCondition": {
+      "@id": "rely:triggerCondition",
+      "@type": "@id",
+      "comment": "The condition that triggers an automation rule"
+    }
+  }
+}

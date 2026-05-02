@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12",
+  "$id": "https://api-evangelist.github.io/rely/json-schema/rely-entity-schema.json",
+  "title": "Rely.io Entity",
+  "description": "A catalog entity instance in the Rely.io software catalog",
+  "type": "object",
+  "required": ["id", "blueprintId", "name"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique entity identifier"
+    },
+    "blueprintId": {
+      "type": "string",
+      "description": "The blueprint type this entity is an instance of"
+    },
+    "name": {
+      "type": "string",
+      "description": "Entity display name"
+    },
+    "properties": {
+      "type": "object",
+      "description": "Property values conforming to the blueprint's property schema",
+      "additionalProperties": true
+    },
+    "relations": {
+      "type": "object",
+      "description": "Related entity identifiers keyed by relation name",
+      "additionalProperties": {
+        "oneOf": [
+          { "type": "string" },
+          { "type": "array", "items": { "type": "string" } },
+          { "type": "null" }
+        ]
+      }
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Entity creation timestamp"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Entity last update timestamp"
+    }
+  }
+}

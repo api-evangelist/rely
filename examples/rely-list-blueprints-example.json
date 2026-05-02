@@ -1,0 +1,70 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.rely.io/api/v1/blueprints",
+    "headers": {
+      "Authorization": "Bearer {api_key}"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "data": [
+        {
+          "id": "service",
+          "name": "Service",
+          "description": "A software service owned by an engineering team",
+          "properties": {
+            "handles-pii": {
+              "title": "Handles PII",
+              "type": "boolean",
+              "description": "Whether this service processes personally identifiable information"
+            },
+            "unit-tests-coverage": {
+              "title": "Unit Test Coverage",
+              "type": "number",
+              "description": "Percentage of code covered by unit tests"
+            },
+            "lifecycle": {
+              "title": "Lifecycle Stage",
+              "type": "string",
+              "enum": ["production", "staging", "deprecated", "sunset"],
+              "description": "Current lifecycle stage of the service"
+            }
+          },
+          "relations": {
+            "team": {
+              "title": "Owning Team",
+              "target": "team",
+              "many": false,
+              "description": "The engineering team that owns this service"
+            },
+            "dependencies": {
+              "title": "Dependencies",
+              "target": "service",
+              "many": true,
+              "description": "Other services this service depends on"
+            }
+          },
+          "createdAt": "2026-01-15T09:00:00Z",
+          "updatedAt": "2026-04-01T14:30:00Z"
+        },
+        {
+          "id": "team",
+          "name": "Team",
+          "description": "An engineering team in the organization",
+          "properties": {
+            "slack-channel": {
+              "title": "Slack Channel",
+              "type": "string",
+              "description": "Primary Slack channel for the team"
+            }
+          },
+          "relations": {},
+          "createdAt": "2026-01-15T09:00:00Z",
+          "updatedAt": "2026-03-10T11:00:00Z"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "name": "Blueprint",
+  "description": "Rely.io blueprint schema structure",
+  "fields": [
+    { "name": "id", "type": "string", "required": true, "description": "Unique blueprint identifier (kebab-case)" },
+    { "name": "name", "type": "string", "required": true, "description": "Display name" },
+    { "name": "description", "type": "string", "required": false, "description": "Optional description" },
+    {
+      "name": "properties",
+      "type": "map<string, BlueprintProperty>",
+      "required": false,
+      "description": "Property schema definitions for entities",
+      "fields": [
+        { "name": "title", "type": "string", "required": true, "description": "Display name" },
+        { "name": "type", "type": "string", "required": true, "enum": ["string", "integer", "number", "boolean", "array", "object"], "description": "JSON Schema type" },
+        { "name": "description", "type": "string", "required": false, "description": "Property description" },
+        { "name": "format", "type": "string", "required": false, "description": "JSON Schema format" },
+        { "name": "enum", "type": "array", "required": false, "description": "Allowed values" },
+        { "name": "required", "type": "boolean", "required": false, "description": "Whether required on entities" }
+      ]
+    },
+    {
+      "name": "relations",
+      "type": "map<string, BlueprintRelation>",
+      "required": false,
+      "description": "Relations to other blueprint types",
+      "fields": [
+        { "name": "title", "type": "string", "required": true, "description": "Display name" },
+        { "name": "target", "type": "string", "required": true, "description": "Target blueprint ID" },
+        { "name": "many", "type": "boolean", "required": false, "description": "One-to-many relation" },
+        { "name": "description", "type": "string", "required": false, "description": "Relation description" }
+      ]
+    },
+    { "name": "createdAt", "type": "datetime", "required": false, "description": "Creation timestamp" },
+    { "name": "updatedAt", "type": "datetime", "required": false, "description": "Last update timestamp" }
+  ]
+}

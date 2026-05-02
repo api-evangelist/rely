@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12",
+  "$id": "https://api-evangelist.github.io/rely/json-schema/rely-blueprint-schema.json",
+  "title": "Rely.io Blueprint",
+  "description": "A blueprint schema defining the structure and attributes of a catalog entity type in Rely.io",
+  "type": "object",
+  "required": ["id", "name"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Globally unique blueprint identifier",
+      "pattern": "^[a-z][a-z0-9-_]*$"
+    },
+    "name": {
+      "type": "string",
+      "description": "User-friendly display name for the blueprint"
+    },
+    "description": {
+      "type": ["string", "null"],
+      "description": "Optional overview of what this blueprint represents"
+    },
+    "properties": {
+      "type": "object",
+      "description": "Schema definitions for properties of entities of this type",
+      "additionalProperties": {
+        "$ref": "#/$defs/BlueprintProperty"
+      }
+    },
+    "relations": {
+      "type": "object",
+      "description": "Relation definitions linking this blueprint to other blueprint types",
+      "additionalProperties": {
+        "$ref": "#/$defs/BlueprintRelation"
+      }
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Blueprint creation timestamp"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Blueprint last update timestamp"
+    }
+  },
+  "$defs": {
+    "BlueprintProperty": {
+      "type": "object",
+      "description": "A property definition within a blueprint schema",
+      "required": ["title", "type"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Display name for the property"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["string", "integer", "number", "boolean", "array", "object"],
+          "description": "JSON Schema data type"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the property's purpose"
+        },
+        "format": {
+          "type": "string",
+          "description": "JSON Schema format (date-time, uri, email, etc.)"
+        },
+        "enum": {
+          "type": "array",
+          "description": "Allowed values for enum properties"
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Whether this property is required on entities"
+        }
+      }
+    },
+    "BlueprintRelation": {
+      "type": "object",
+      "description": "A relation linking this blueprint to another blueprint type",
+      "required": ["title", "target"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Display name for the relation"
+        },
+        "target": {
+          "type": "string",
+          "description": "Target blueprint identifier"
+        },
+        "many": {
+          "type": "boolean",
+          "description": "Whether this is a one-to-many relation",
+          "default": false
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the relation"
+        }
+      }
+    }
+  }
+}
