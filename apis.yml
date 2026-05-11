@@ -120,17 +120,17 @@ useCases:
       Allow developers to provision cloud infrastructure, create repositories,
       and onboard new services without opening platform team tickets.
 integrations:
-  - name: GitHub Integration
+  - name: GitHub
     description: Sync repositories, workflows, and deployment data to the catalog
-  - name: GitLab Integration
+  - name: GitLab
     description: Sync GitLab projects, pipelines, and deployment visibility
-  - name: PagerDuty Integration
+  - name: PagerDuty
     description: Surface on-call rotations and incident data in service catalog
-  - name: Datadog Integration
+  - name: Datadog
     description: Pull monitoring metrics and SLO data into service scorecards
-  - name: AWS Integration
+  - name: AWS
     description: Track cloud resources and infrastructure entities in the catalog
-  - name: Kubernetes Integration
+  - name: Kubernetes
     description: Discover and catalog Kubernetes workloads and deployments
 maintainers:
   - FN: Kin Lane
