@@ -44,7 +44,7 @@ apis:
         url: https://docs.rely.io/public-api
       - type: OpenAPI
         url: openapi/rely-openapi.yml
-      - type: Getting Started
+      - type: GettingStarted
         url: https://docs.rely.io/getting-started
 
 common:
@@ -52,11 +52,11 @@ common:
     url: https://www.rely.io
   - type: Documentation
     url: https://docs.rely.io
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/Rely-io
   - type: GitHub SDK
     url: https://github.com/Rely-io/galaxy-oss
-  - type: Sign Up
+  - type: SignUp
     url: https://app.rely.io/register
   - type: Demo
     url: https://demo.rely.io
