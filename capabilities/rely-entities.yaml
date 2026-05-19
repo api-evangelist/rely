@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Rely.io Public API — Entities
+  description: 'Rely.io Public API — Entities. 5 operations. Lead operation: List Entities. Self-contained Naftiko capability
+    covering one Rely business surface.'
+  tags:
+  - Rely
+  - Entities
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    RELY_API_KEY: RELY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rely-entities
+    baseUri: https://api.rely.io
+    description: Rely.io Public API — Entities business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-blueprints-blueprintId-entities
+      path: /api/v1/blueprints/{blueprintId}/entities
+      operations:
+      - name: listentities
+        method: GET
+        description: List Entities
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createentity
+        method: POST
+        description: Create Entity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-blueprints-blueprintId-entities-entityId
+      path: /api/v1/blueprints/{blueprintId}/entities/{entityId}
+      operations:
+      - name: getentity
+        method: GET
+        description: Get Entity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateentity
+        method: PUT
+        description: Update Entity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteentity
+        method: DELETE
+        description: Delete Entity
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.RELY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rely-entities-rest
+    port: 8080
+    description: REST adapter for Rely.io Public API — Entities. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/v1/blueprints/{blueprintid}/entities
+      name: api-v1-blueprints-blueprintid-entities
+      description: REST surface for api-v1-blueprints-blueprintId-entities.
+      operations:
+      - method: GET
+        name: listentities
+        description: List Entities
+        call: rely-entities.listentities
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createentity
+        description: Create Entity
+        call: rely-entities.createentity
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/blueprints/{blueprintid}/entities/{entityid}
+      name: api-v1-blueprints-blueprintid-entities-entityid
+      description: REST surface for api-v1-blueprints-blueprintId-entities-entityId.
+      operations:
+      - method: GET
+        name: getentity
+        description: Get Entity
+        call: rely-entities.getentity
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateentity
+        description: Update Entity
+        call: rely-entities.updateentity
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteentity
+        description: Delete Entity
+        call: rely-entities.deleteentity
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rely-entities-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Rely.io Public API — Entities. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-entities
+      description: List Entities
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rely-entities.listentities
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-entity
+      description: Create Entity
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: rely-entities.createentity
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-entity
+      description: Get Entity
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rely-entities.getentity
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-entity
+      description: Update Entity
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: rely-entities.updateentity
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-entity
+      description: Delete Entity
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: rely-entities.deleteentity
+      outputParameters:
+      - type: object
+        mapping: $.
