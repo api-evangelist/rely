@@ -68,6 +68,8 @@ common:
   url: mailto:support@rely.io
 - type: LinkedIn
   url: https://www.linkedin.com/company/rely-io
+- type: LLMsTxt
+  url: https://docs.rely.io/llms.txt
 features:
 - name: Software Catalog
   description: Centralized service catalog powered by blueprints and entities tracking ownership, dependencies, documentation,
