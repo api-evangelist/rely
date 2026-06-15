@@ -1,0 +1,499 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rely.io Public API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Blueprints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Blueprints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rely.io/api/v1/blueprints"
+          },
+          "docs": "Retrieve all blueprint schemas defined in the organization's developer portal. Blueprints define the structure, properties, and relations for catalog entity types."
+        },
+        {
+          "info": {
+            "name": "Create Blueprint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rely.io/api/v1/blueprints",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new blueprint schema defining a type of catalog entity. Blueprints use an OpenAPI 3-compatible JSON descriptor with Rely.io-specific extensions for properties and relations."
+        },
+        {
+          "info": {
+            "name": "Get Blueprint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rely.io/api/v1/blueprints/:blueprintId",
+            "params": [
+              {
+                "name": "blueprintId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the blueprint"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific blueprint schema by its identifier."
+        },
+        {
+          "info": {
+            "name": "Update Blueprint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rely.io/api/v1/blueprints/:blueprintId",
+            "params": [
+              {
+                "name": "blueprintId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the blueprint"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing blueprint schema."
+        },
+        {
+          "info": {
+            "name": "Delete Blueprint",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rely.io/api/v1/blueprints/:blueprintId",
+            "params": [
+              {
+                "name": "blueprintId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the blueprint"
+              }
+            ]
+          },
+          "docs": "Delete a blueprint schema. All entities of this blueprint type must be deleted first."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Entities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rely.io/api/v1/blueprints/:blueprintId/entities",
+            "params": [
+              {
+                "name": "blueprintId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the blueprint"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Retrieve all catalog entity instances of a specific blueprint type. Returns services, teams, deployments, or other resources tracked in the software catalog."
+        },
+        {
+          "info": {
+            "name": "Create Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rely.io/api/v1/blueprints/:blueprintId/entities",
+            "params": [
+              {
+                "name": "blueprintId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the blueprint"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new catalog entity instance of the specified blueprint type. Entity properties must conform to the blueprint schema."
+        },
+        {
+          "info": {
+            "name": "Get Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rely.io/api/v1/blueprints/:blueprintId/entities/:entityId",
+            "params": [
+              {
+                "name": "blueprintId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the blueprint"
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the entity"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific catalog entity by its identifier."
+        },
+        {
+          "info": {
+            "name": "Update Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rely.io/api/v1/blueprints/:blueprintId/entities/:entityId",
+            "params": [
+              {
+                "name": "blueprintId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the blueprint"
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the entity"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing catalog entity's properties and relations."
+        },
+        {
+          "info": {
+            "name": "Delete Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rely.io/api/v1/blueprints/:blueprintId/entities/:entityId",
+            "params": [
+              {
+                "name": "blueprintId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the blueprint"
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the entity"
+              }
+            ]
+          },
+          "docs": "Delete a catalog entity from the software catalog."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Scorecards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Scorecards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rely.io/api/v1/scorecards"
+          },
+          "docs": "Retrieve all scorecards defined in the organization. Scorecards evaluate services against engineering standards such as production readiness, DORA metrics, and observability requirements."
+        },
+        {
+          "info": {
+            "name": "Create Scorecard",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rely.io/api/v1/scorecards",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new engineering scorecard with rules and thresholds for evaluating services."
+        },
+        {
+          "info": {
+            "name": "Get Scorecard",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rely.io/api/v1/scorecards/:scorecardId",
+            "params": [
+              {
+                "name": "scorecardId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the scorecard"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific scorecard and its rules."
+        },
+        {
+          "info": {
+            "name": "Update Scorecard",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rely.io/api/v1/scorecards/:scorecardId",
+            "params": [
+              {
+                "name": "scorecardId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the scorecard"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing scorecard's rules and configuration."
+        },
+        {
+          "info": {
+            "name": "Delete Scorecard",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rely.io/api/v1/scorecards/:scorecardId",
+            "params": [
+              {
+                "name": "scorecardId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the scorecard"
+              }
+            ]
+          },
+          "docs": "Delete a scorecard from the organization."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Self-Service Actions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Self-Service Actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rely.io/api/v1/actions"
+          },
+          "docs": "Retrieve all self-service actions defined in the organization. Self-service actions enable developers to scaffold services, provision cloud resources, and trigger deployments independently."
+        },
+        {
+          "info": {
+            "name": "Create Self-Service Action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rely.io/api/v1/actions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new self-service action. Actions are defined as OpenAPI 3 spec files with Rely.io-specific extensions for execution configuration."
+        },
+        {
+          "info": {
+            "name": "Get Self-Service Action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rely.io/api/v1/actions/:actionId",
+            "params": [
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the self-service action"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific self-service action configuration."
+        },
+        {
+          "info": {
+            "name": "Update Self-Service Action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rely.io/api/v1/actions/:actionId",
+            "params": [
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the self-service action"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a self-service action configuration."
+        },
+        {
+          "info": {
+            "name": "Delete Self-Service Action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rely.io/api/v1/actions/:actionId",
+            "params": [
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the self-service action"
+              }
+            ]
+          },
+          "docs": "Delete a self-service action from the organization."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Automations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Automations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rely.io/api/v1/automations"
+          },
+          "docs": "Retrieve all automation rules defined in the organization. Automations trigger workflows based on entity catalog changes or external events."
+        },
+        {
+          "info": {
+            "name": "Create Automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rely.io/api/v1/automations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new automation rule triggered by catalog events."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Invite User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rely.io/api/v1/legacy/users/invite",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send an invitation email to a new user to join the organization's Rely.io developer portal."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
