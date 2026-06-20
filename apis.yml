@@ -7,7 +7,7 @@ description: >-
   a centralized service catalog with real-time data. Rely.io's Public REST API provides full CRUD access to blueprints,
   entities, scorecards, self-service actions, and automations using Bearer token authentication.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Developer Experience
   - Internal Developer Portal
