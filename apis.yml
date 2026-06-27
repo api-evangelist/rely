@@ -50,7 +50,7 @@ common:
     url: https://github.com/Rely-io
   - type: GitHub SDK
     url: https://github.com/Rely-io/galaxy-oss
-  - type: SignUp
+  - type: Signup
     url: https://app.rely.io/register
   - type: Demo
     url: https://demo.rely.io
@@ -58,7 +58,7 @@ common:
     url: mailto:support@rely.io
   - type: LinkedIn
     url: https://www.linkedin.com/company/rely-io
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://docs.rely.io/llms.txt
 features:
   - name: Software Catalog
