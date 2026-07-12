@@ -42,6 +42,10 @@ apis:
       - type: GettingStarted
         url: https://docs.rely.io/getting-started
 common:
+  - type: DomainSecurity
+    url: security/rely-domain-security.yml
+  - type: Authentication
+    url: authentication/rely-authentication.yml
   - type: Website
     url: https://www.rely.io
   - type: Documentation
