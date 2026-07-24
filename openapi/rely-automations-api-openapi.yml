@@ -1,0 +1,131 @@
+openapi: 3.1.0
+info:
+  title: Rely.io Public Automations API
+  description: The Rely.io Public API provides programmatic access to all features of the Rely.io Internal Developer Portal platform. Full CRUD operations are available for software catalog entities, blueprints, scorecards, self-service actions, and automations. Every action available through the Rely.io web interface can also be performed via this REST API. Authentication uses a long-lived API key (Bearer token) generated in the Rely.io Plugins settings page.
+  version: 1.0.0
+  contact:
+    name: Rely.io Support
+    email: support@rely.io
+    url: https://docs.rely.io
+  termsOfService: https://www.rely.io/terms
+servers:
+- url: https://api.rely.io
+  description: Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Automations
+  description: Manage automation rules that trigger workflows based on catalog entity changes or external events via plugin integrations.
+paths:
+  /api/v1/automations:
+    get:
+      operationId: listAutomations
+      summary: List Automations
+      description: Retrieve all automation rules defined in the organization. Automations trigger workflows based on entity catalog changes or external events.
+      tags:
+      - Automations
+      responses:
+        '200':
+          description: List of automations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Automation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createAutomation
+      summary: Create Automation
+      description: Create a new automation rule triggered by catalog events.
+      tags:
+      - Automations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutomationRequest'
+      responses:
+        '201':
+          description: Automation created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Automation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    AutomationRequest:
+      type: object
+      required:
+      - name
+      - trigger
+      - action
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        trigger:
+          type: object
+        action:
+          type: object
+        enabled:
+          type: boolean
+          default: true
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+    Automation:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        trigger:
+          type: object
+          description: Automation trigger condition
+        action:
+          type: object
+          description: Action to execute when triggered
+        enabled:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Long-lived API key generated in the Rely.io Plugins settings page. Valid for 10 years. Include as Bearer token in Authorization header.
+externalDocs:
+  description: Rely.io API Documentation
+  url: https://docs.rely.io/public-api

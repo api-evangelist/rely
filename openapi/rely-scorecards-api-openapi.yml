@@ -1,0 +1,223 @@
+openapi: 3.1.0
+info:
+  title: Rely.io Public Automations Scorecards API
+  description: The Rely.io Public API provides programmatic access to all features of the Rely.io Internal Developer Portal platform. Full CRUD operations are available for software catalog entities, blueprints, scorecards, self-service actions, and automations. Every action available through the Rely.io web interface can also be performed via this REST API. Authentication uses a long-lived API key (Bearer token) generated in the Rely.io Plugins settings page.
+  version: 1.0.0
+  contact:
+    name: Rely.io Support
+    email: support@rely.io
+    url: https://docs.rely.io
+  termsOfService: https://www.rely.io/terms
+servers:
+- url: https://api.rely.io
+  description: Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Scorecards
+  description: Define and manage engineering scorecards that track adoption of standards and production readiness across services.
+paths:
+  /api/v1/scorecards:
+    get:
+      operationId: listScorecards
+      summary: List Scorecards
+      description: Retrieve all scorecards defined in the organization. Scorecards evaluate services against engineering standards such as production readiness, DORA metrics, and observability requirements.
+      tags:
+      - Scorecards
+      responses:
+        '200':
+          description: List of scorecards
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Scorecard'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createScorecard
+      summary: Create Scorecard
+      description: Create a new engineering scorecard with rules and thresholds for evaluating services.
+      tags:
+      - Scorecards
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScorecardRequest'
+      responses:
+        '201':
+          description: Scorecard created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scorecard'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/scorecards/{scorecardId}:
+    get:
+      operationId: getScorecard
+      summary: Get Scorecard
+      description: Retrieve a specific scorecard and its rules.
+      tags:
+      - Scorecards
+      parameters:
+      - $ref: '#/components/parameters/ScorecardId'
+      responses:
+        '200':
+          description: Scorecard details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scorecard'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateScorecard
+      summary: Update Scorecard
+      description: Update an existing scorecard's rules and configuration.
+      tags:
+      - Scorecards
+      parameters:
+      - $ref: '#/components/parameters/ScorecardId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScorecardRequest'
+      responses:
+        '200':
+          description: Scorecard updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scorecard'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteScorecard
+      summary: Delete Scorecard
+      description: Delete a scorecard from the organization.
+      tags:
+      - Scorecards
+      parameters:
+      - $ref: '#/components/parameters/ScorecardId'
+      responses:
+        '204':
+          description: Scorecard deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    ScorecardRequest:
+      type: object
+      required:
+      - name
+      - blueprintId
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        blueprintId:
+          type: string
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScorecardRule'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+    Scorecard:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique scorecard identifier
+        name:
+          type: string
+          description: Scorecard display name
+        description:
+          type: string
+        blueprintId:
+          type: string
+          description: Blueprint this scorecard evaluates
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScorecardRule'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    ScorecardRule:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Rule display name
+        description:
+          type: string
+        level:
+          type: string
+          description: Maturity level (bronze, silver, gold, etc.)
+        condition:
+          type: object
+          description: Rule evaluation condition expression
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    ScorecardId:
+      name: scorecardId
+      in: path
+      required: true
+      description: Unique identifier of the scorecard
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Long-lived API key generated in the Rely.io Plugins settings page. Valid for 10 years. Include as Bearer token in Authorization header.
+externalDocs:
+  description: Rely.io API Documentation
+  url: https://docs.rely.io/public-api

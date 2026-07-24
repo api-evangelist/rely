@@ -1,0 +1,252 @@
+openapi: 3.1.0
+info:
+  title: Rely.io Public Automations Blueprints API
+  description: The Rely.io Public API provides programmatic access to all features of the Rely.io Internal Developer Portal platform. Full CRUD operations are available for software catalog entities, blueprints, scorecards, self-service actions, and automations. Every action available through the Rely.io web interface can also be performed via this REST API. Authentication uses a long-lived API key (Bearer token) generated in the Rely.io Plugins settings page.
+  version: 1.0.0
+  contact:
+    name: Rely.io Support
+    email: support@rely.io
+    url: https://docs.rely.io
+  termsOfService: https://www.rely.io/terms
+servers:
+- url: https://api.rely.io
+  description: Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Blueprints
+  description: Manage blueprint schemas that define the structure and attributes of catalog entities such as services, teams, and resources.
+paths:
+  /api/v1/blueprints:
+    get:
+      operationId: listBlueprints
+      summary: List Blueprints
+      description: Retrieve all blueprint schemas defined in the organization's developer portal. Blueprints define the structure, properties, and relations for catalog entity types.
+      tags:
+      - Blueprints
+      responses:
+        '200':
+          description: List of blueprints
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Blueprint'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createBlueprint
+      summary: Create Blueprint
+      description: Create a new blueprint schema defining a type of catalog entity. Blueprints use an OpenAPI 3-compatible JSON descriptor with Rely.io-specific extensions for properties and relations.
+      tags:
+      - Blueprints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlueprintRequest'
+      responses:
+        '201':
+          description: Blueprint created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blueprint'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/blueprints/{blueprintId}:
+    get:
+      operationId: getBlueprint
+      summary: Get Blueprint
+      description: Retrieve a specific blueprint schema by its identifier.
+      tags:
+      - Blueprints
+      parameters:
+      - $ref: '#/components/parameters/BlueprintId'
+      responses:
+        '200':
+          description: Blueprint details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blueprint'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateBlueprint
+      summary: Update Blueprint
+      description: Update an existing blueprint schema.
+      tags:
+      - Blueprints
+      parameters:
+      - $ref: '#/components/parameters/BlueprintId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlueprintRequest'
+      responses:
+        '200':
+          description: Blueprint updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Blueprint'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteBlueprint
+      summary: Delete Blueprint
+      description: Delete a blueprint schema. All entities of this blueprint type must be deleted first.
+      tags:
+      - Blueprints
+      parameters:
+      - $ref: '#/components/parameters/BlueprintId'
+      responses:
+        '204':
+          description: Blueprint deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    BlueprintRequest:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: Globally unique blueprint identifier
+        name:
+          type: string
+        description:
+          type: string
+        properties:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/BlueprintProperty'
+        relations:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/BlueprintRelation'
+    BlueprintRelation:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Display name for the relation
+        target:
+          type: string
+          description: Target blueprint identifier
+        many:
+          type: boolean
+          description: Whether this is a one-to-many relation
+        description:
+          type: string
+          description: Description of the relation
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+    BlueprintProperty:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Display name for the property
+        type:
+          type: string
+          description: JSON Schema type (string, integer, boolean, array, object)
+        description:
+          type: string
+          description: Description of the property
+        enum:
+          type: array
+          items: {}
+          description: Allowed values for enum properties
+        format:
+          type: string
+          description: JSON Schema format (date-time, uri, email, etc.)
+    Blueprint:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Globally unique blueprint identifier
+        name:
+          type: string
+          description: User-friendly display name
+        description:
+          type: string
+          description: Optional overview of what this blueprint represents
+        properties:
+          type: object
+          description: JSON Schema-compatible property definitions for entities of this type
+          additionalProperties:
+            $ref: '#/components/schemas/BlueprintProperty'
+        relations:
+          type: object
+          description: Relation definitions linking this blueprint to other blueprints
+          additionalProperties:
+            $ref: '#/components/schemas/BlueprintRelation'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    BlueprintId:
+      name: blueprintId
+      in: path
+      required: true
+      description: Unique identifier of the blueprint
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Long-lived API key generated in the Rely.io Plugins settings page. Valid for 10 years. Include as Bearer token in Authorization header.
+externalDocs:
+  description: Rely.io API Documentation
+  url: https://docs.rely.io/public-api

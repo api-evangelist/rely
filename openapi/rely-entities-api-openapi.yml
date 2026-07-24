@@ -1,0 +1,257 @@
+openapi: 3.1.0
+info:
+  title: Rely.io Public Automations Entities API
+  description: The Rely.io Public API provides programmatic access to all features of the Rely.io Internal Developer Portal platform. Full CRUD operations are available for software catalog entities, blueprints, scorecards, self-service actions, and automations. Every action available through the Rely.io web interface can also be performed via this REST API. Authentication uses a long-lived API key (Bearer token) generated in the Rely.io Plugins settings page.
+  version: 1.0.0
+  contact:
+    name: Rely.io Support
+    email: support@rely.io
+    url: https://docs.rely.io
+  termsOfService: https://www.rely.io/terms
+servers:
+- url: https://api.rely.io
+  description: Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Entities
+  description: Manage catalog entity instances — the individual services, teams, deployments, and resources tracked in the software catalog.
+paths:
+  /api/v1/blueprints/{blueprintId}/entities:
+    get:
+      operationId: listEntities
+      summary: List Entities
+      description: Retrieve all catalog entity instances of a specific blueprint type. Returns services, teams, deployments, or other resources tracked in the software catalog.
+      tags:
+      - Entities
+      parameters:
+      - $ref: '#/components/parameters/BlueprintId'
+      - $ref: '#/components/parameters/PageParam'
+      - $ref: '#/components/parameters/SizeParam'
+      responses:
+        '200':
+          description: List of entities
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Entity'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createEntity
+      summary: Create Entity
+      description: Create a new catalog entity instance of the specified blueprint type. Entity properties must conform to the blueprint schema.
+      tags:
+      - Entities
+      parameters:
+      - $ref: '#/components/parameters/BlueprintId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityRequest'
+      responses:
+        '201':
+          description: Entity created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entity'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/blueprints/{blueprintId}/entities/{entityId}:
+    get:
+      operationId: getEntity
+      summary: Get Entity
+      description: Retrieve a specific catalog entity by its identifier.
+      tags:
+      - Entities
+      parameters:
+      - $ref: '#/components/parameters/BlueprintId'
+      - $ref: '#/components/parameters/EntityId'
+      responses:
+        '200':
+          description: Entity details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entity'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateEntity
+      summary: Update Entity
+      description: Update an existing catalog entity's properties and relations.
+      tags:
+      - Entities
+      parameters:
+      - $ref: '#/components/parameters/BlueprintId'
+      - $ref: '#/components/parameters/EntityId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EntityRequest'
+      responses:
+        '200':
+          description: Entity updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entity'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteEntity
+      summary: Delete Entity
+      description: Delete a catalog entity from the software catalog.
+      tags:
+      - Entities
+      parameters:
+      - $ref: '#/components/parameters/BlueprintId'
+      - $ref: '#/components/parameters/EntityId'
+      responses:
+        '204':
+          description: Entity deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    SizeParam:
+      name: size
+      in: query
+      description: Number of results per page
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    EntityId:
+      name: entityId
+      in: path
+      required: true
+      description: Unique identifier of the entity
+      schema:
+        type: string
+    BlueprintId:
+      name: blueprintId
+      in: path
+      required: true
+      description: Unique identifier of the blueprint
+      schema:
+        type: string
+    PageParam:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Entity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique entity identifier
+        blueprintId:
+          type: string
+          description: The blueprint type this entity belongs to
+        name:
+          type: string
+          description: Entity display name
+        properties:
+          type: object
+          description: Property values conforming to the blueprint schema
+          additionalProperties: true
+        relations:
+          type: object
+          description: Related entity identifiers
+          additionalProperties: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+    EntityRequest:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        properties:
+          type: object
+          additionalProperties: true
+        relations:
+          type: object
+          additionalProperties: true
+    Pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+        page:
+          type: integer
+        size:
+          type: integer
+        hasMore:
+          type: boolean
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Long-lived API key generated in the Rely.io Plugins settings page. Valid for 10 years. Include as Bearer token in Authorization header.
+externalDocs:
+  description: Rely.io API Documentation
+  url: https://docs.rely.io/public-api

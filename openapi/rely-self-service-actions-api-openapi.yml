@@ -1,0 +1,214 @@
+openapi: 3.1.0
+info:
+  title: Rely.io Public Automations Self-Service Actions API
+  description: The Rely.io Public API provides programmatic access to all features of the Rely.io Internal Developer Portal platform. Full CRUD operations are available for software catalog entities, blueprints, scorecards, self-service actions, and automations. Every action available through the Rely.io web interface can also be performed via this REST API. Authentication uses a long-lived API key (Bearer token) generated in the Rely.io Plugins settings page.
+  version: 1.0.0
+  contact:
+    name: Rely.io Support
+    email: support@rely.io
+    url: https://docs.rely.io
+  termsOfService: https://www.rely.io/terms
+servers:
+- url: https://api.rely.io
+  description: Production Server
+security:
+- bearerAuth: []
+tags:
+- name: Self-Service Actions
+  description: Configure developer self-service actions that automate infrastructure provisioning, service scaffolding, and deployment workflows.
+paths:
+  /api/v1/actions:
+    get:
+      operationId: listActions
+      summary: List Self-Service Actions
+      description: Retrieve all self-service actions defined in the organization. Self-service actions enable developers to scaffold services, provision cloud resources, and trigger deployments independently.
+      tags:
+      - Self-Service Actions
+      responses:
+        '200':
+          description: List of self-service actions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Action'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createAction
+      summary: Create Self-Service Action
+      description: Create a new self-service action. Actions are defined as OpenAPI 3 spec files with Rely.io-specific extensions for execution configuration.
+      tags:
+      - Self-Service Actions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionRequest'
+      responses:
+        '201':
+          description: Action created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/actions/{actionId}:
+    get:
+      operationId: getAction
+      summary: Get Self-Service Action
+      description: Retrieve a specific self-service action configuration.
+      tags:
+      - Self-Service Actions
+      parameters:
+      - $ref: '#/components/parameters/ActionId'
+      responses:
+        '200':
+          description: Action details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateAction
+      summary: Update Self-Service Action
+      description: Update a self-service action configuration.
+      tags:
+      - Self-Service Actions
+      parameters:
+      - $ref: '#/components/parameters/ActionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionRequest'
+      responses:
+        '200':
+          description: Action updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteAction
+      summary: Delete Self-Service Action
+      description: Delete a self-service action from the organization.
+      tags:
+      - Self-Service Actions
+      parameters:
+      - $ref: '#/components/parameters/ActionId'
+      responses:
+        '204':
+          description: Action deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    ActionId:
+      name: actionId
+      in: path
+      required: true
+      description: Unique identifier of the self-service action
+      schema:
+        type: string
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+    ActionRequest:
+      type: object
+      required:
+      - name
+      - blueprintId
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        blueprintId:
+          type: string
+        trigger:
+          type: string
+        userInputs:
+          type: object
+        invocationMethod:
+          type: object
+    Action:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique action identifier
+        name:
+          type: string
+          description: Action display name
+        description:
+          type: string
+        blueprintId:
+          type: string
+          description: Blueprint this action applies to
+        trigger:
+          type: string
+          description: Action trigger type (manual, webhook, scheduled)
+        userInputs:
+          type: object
+          description: Input schema for the action form
+        invocationMethod:
+          type: object
+          description: Execution method (webhook, GitHub Actions, GitLab, etc.)
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Long-lived API key generated in the Rely.io Plugins settings page. Valid for 10 years. Include as Bearer token in Authorization header.
+externalDocs:
+  description: Rely.io API Documentation
+  url: https://docs.rely.io/public-api
