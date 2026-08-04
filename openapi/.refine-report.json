@@ -1,0 +1,24 @@
+{
+  "provider": "rely",
+  "sources": [
+    "rely-automations-api-openapi.yml",
+    "rely-blueprints-api-openapi.yml",
+    "rely-entities-api-openapi.yml",
+    "rely-scorecards-api-openapi.yml",
+    "rely-self-service-actions-api-openapi.yml",
+    "rely-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "rely-automations-api-openapi.yml",
+    "rely-blueprints-api-openapi.yml",
+    "rely-entities-api-openapi.yml",
+    "rely-scorecards-api-openapi.yml",
+    "rely-self-service-actions-api-openapi.yml",
+    "rely-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
