@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rely.io Public Automations Scorecards API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Scorecards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Scorecards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rely.io/api/v1/scorecards"
+          },
+          "docs": "Retrieve all scorecards defined in the organization. Scorecards evaluate services against engineering standards such as production readiness, DORA metrics, and observability requirements."
+        },
+        {
+          "info": {
+            "name": "Create Scorecard",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rely.io/api/v1/scorecards",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new engineering scorecard with rules and thresholds for evaluating services."
+        },
+        {
+          "info": {
+            "name": "Get Scorecard",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rely.io/api/v1/scorecards/:scorecardId",
+            "params": [
+              {
+                "name": "scorecardId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the scorecard"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific scorecard and its rules."
+        },
+        {
+          "info": {
+            "name": "Update Scorecard",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rely.io/api/v1/scorecards/:scorecardId",
+            "params": [
+              {
+                "name": "scorecardId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the scorecard"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing scorecard's rules and configuration."
+        },
+        {
+          "info": {
+            "name": "Delete Scorecard",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rely.io/api/v1/scorecards/:scorecardId",
+            "params": [
+              {
+                "name": "scorecardId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the scorecard"
+              }
+            ]
+          },
+          "docs": "Delete a scorecard from the organization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

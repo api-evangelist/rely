@@ -1,0 +1,157 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rely.io Public Automations Entities API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Entities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rely.io/api/v1/blueprints/:blueprintId/entities",
+            "params": [
+              {
+                "name": "blueprintId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the blueprint"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ]
+          },
+          "docs": "Retrieve all catalog entity instances of a specific blueprint type. Returns services, teams, deployments, or other resources tracked in the software catalog."
+        },
+        {
+          "info": {
+            "name": "Create Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rely.io/api/v1/blueprints/:blueprintId/entities",
+            "params": [
+              {
+                "name": "blueprintId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the blueprint"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new catalog entity instance of the specified blueprint type. Entity properties must conform to the blueprint schema."
+        },
+        {
+          "info": {
+            "name": "Get Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rely.io/api/v1/blueprints/:blueprintId/entities/:entityId",
+            "params": [
+              {
+                "name": "blueprintId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the blueprint"
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the entity"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific catalog entity by its identifier."
+        },
+        {
+          "info": {
+            "name": "Update Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rely.io/api/v1/blueprints/:blueprintId/entities/:entityId",
+            "params": [
+              {
+                "name": "blueprintId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the blueprint"
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the entity"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing catalog entity's properties and relations."
+        },
+        {
+          "info": {
+            "name": "Delete Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rely.io/api/v1/blueprints/:blueprintId/entities/:entityId",
+            "params": [
+              {
+                "name": "blueprintId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the blueprint"
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the entity"
+              }
+            ]
+          },
+          "docs": "Delete a catalog entity from the software catalog."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

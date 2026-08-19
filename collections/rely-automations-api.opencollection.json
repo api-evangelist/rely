@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rely.io Public Automations API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Automations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Automations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rely.io/api/v1/automations"
+          },
+          "docs": "Retrieve all automation rules defined in the organization. Automations trigger workflows based on entity catalog changes or external events."
+        },
+        {
+          "info": {
+            "name": "Create Automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rely.io/api/v1/automations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new automation rule triggered by catalog events."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

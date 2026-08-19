@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rely.io Public Automations Users API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Invite User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rely.io/api/v1/legacy/users/invite",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send an invitation email to a new user to join the organization's Rely.io developer portal."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

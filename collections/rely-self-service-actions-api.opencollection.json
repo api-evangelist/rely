@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rely.io Public Automations Self-Service Actions API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Self-Service Actions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Self-Service Actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rely.io/api/v1/actions"
+          },
+          "docs": "Retrieve all self-service actions defined in the organization. Self-service actions enable developers to scaffold services, provision cloud resources, and trigger deployments independently."
+        },
+        {
+          "info": {
+            "name": "Create Self-Service Action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.rely.io/api/v1/actions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new self-service action. Actions are defined as OpenAPI 3 spec files with Rely.io-specific extensions for execution configuration."
+        },
+        {
+          "info": {
+            "name": "Get Self-Service Action",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.rely.io/api/v1/actions/:actionId",
+            "params": [
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the self-service action"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific self-service action configuration."
+        },
+        {
+          "info": {
+            "name": "Update Self-Service Action",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.rely.io/api/v1/actions/:actionId",
+            "params": [
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the self-service action"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a self-service action configuration."
+        },
+        {
+          "info": {
+            "name": "Delete Self-Service Action",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.rely.io/api/v1/actions/:actionId",
+            "params": [
+              {
+                "name": "actionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the self-service action"
+              }
+            ]
+          },
+          "docs": "Delete a self-service action from the organization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

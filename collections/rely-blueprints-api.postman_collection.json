@@ -1,0 +1,1096 @@
+{
+  "item": [
+    {
+      "id": "da581519-a9b8-4bd8-ae6d-918db37eaa80",
+      "name": "Blueprints",
+      "description": {
+        "content": "Manage blueprint schemas that define the structure and attributes of catalog entities such as services, teams, and resources.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b48e559e-0b08-4a91-bbf5-830a387e218c",
+          "name": "List Blueprints",
+          "request": {
+            "name": "List Blueprints",
+            "description": {
+              "content": "Retrieve all blueprint schemas defined in the organization's developer portal. Blueprints define the structure, properties, and relations for catalog entity types.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "blueprints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2a7e4778-eb13-4d01-b770-c1f81307a7e4",
+              "name": "List of blueprints",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blueprints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"properties\": {\n        \"key_0\": {\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"string\"\n        }\n      },\n      \"relations\": {\n        \"key_0\": {\n          \"title\": \"string\",\n          \"target\": \"string\",\n          \"many\": true,\n          \"description\": \"string\"\n        },\n        \"key_1\": {\n          \"title\": \"string\",\n          \"target\": \"string\",\n          \"many\": false,\n          \"description\": \"string\"\n        }\n      },\n      \"createdAt\": \"1995-06-04T05:10:02.016Z\",\n      \"updatedAt\": \"1982-01-29T00:15:49.759Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"properties\": {\n        \"key_0\": {\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"string\"\n        },\n        \"key_1\": {\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"description\": \"string\",\n          \"format\": \"string\"\n        }\n      },\n      \"relations\": {\n        \"key_0\": {\n          \"title\": \"string\",\n          \"target\": \"string\",\n          \"many\": false,\n          \"description\": \"string\"\n        },\n        \"key_1\": {\n          \"title\": \"string\",\n          \"target\": \"string\",\n          \"many\": true,\n          \"description\": \"string\"\n        },\n        \"key_2\": {\n          \"title\": \"string\",\n          \"target\": \"string\",\n          \"many\": true,\n          \"description\": \"string\"\n        }\n      },\n      \"createdAt\": \"1965-11-17T12:57:44.290Z\",\n      \"updatedAt\": \"1960-10-26T00:11:59.460Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e50d745-f9ba-4a2b-a683-5ae1ffec1f5c",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blueprints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1a081db-63ca-4fbe-a0ea-904d3f7cd4f7",
+          "name": "Create Blueprint",
+          "request": {
+            "name": "Create Blueprint",
+            "description": {
+              "content": "Create a new blueprint schema defining a type of catalog entity. Blueprints use an OpenAPI 3-compatible JSON descriptor with Rely.io-specific extensions for properties and relations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "blueprints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"properties\": {\n    \"key_0\": {\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"format\": \"<string>\"\n    }\n  },\n  \"relations\": {\n    \"key_0\": {\n      \"title\": \"<string>\",\n      \"target\": \"<string>\",\n      \"many\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9fa05a7b-4f79-4314-bce6-4f1a83294977",
+              "name": "Blueprint created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blueprints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"properties\": {\n    \"key_0\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    },\n    \"key_1\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    }\n  },\n  \"relations\": {\n    \"key_0\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": false,\n      \"description\": \"string\"\n    },\n    \"key_1\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": true,\n      \"description\": \"string\"\n    },\n    \"key_2\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": true,\n      \"description\": \"string\"\n    },\n    \"key_3\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": false,\n      \"description\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"properties\": {\n    \"key_0\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    },\n    \"key_1\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    },\n    \"key_2\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    }\n  },\n  \"relations\": {\n    \"key_0\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": true,\n      \"description\": \"string\"\n    },\n    \"key_1\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": true,\n      \"description\": \"string\"\n    },\n    \"key_2\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": false,\n      \"description\": \"string\"\n    }\n  },\n  \"createdAt\": \"1972-04-01T22:26:40.496Z\",\n  \"updatedAt\": \"2025-07-13T22:12:07.511Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fc124d7-899d-49c6-a3e3-b1456d5d350c",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blueprints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"properties\": {\n    \"key_0\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    },\n    \"key_1\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    }\n  },\n  \"relations\": {\n    \"key_0\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": false,\n      \"description\": \"string\"\n    },\n    \"key_1\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": true,\n      \"description\": \"string\"\n    },\n    \"key_2\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": true,\n      \"description\": \"string\"\n    },\n    \"key_3\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": false,\n      \"description\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0eab0401-1b15-44f2-92cb-1fc60d8c7de8",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blueprints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"properties\": {\n    \"key_0\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    },\n    \"key_1\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    }\n  },\n  \"relations\": {\n    \"key_0\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": false,\n      \"description\": \"string\"\n    },\n    \"key_1\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": true,\n      \"description\": \"string\"\n    },\n    \"key_2\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": true,\n      \"description\": \"string\"\n    },\n    \"key_3\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": false,\n      \"description\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b04bc628-2a64-4fb8-8ba8-4b50cbef5612",
+          "name": "Get Blueprint",
+          "request": {
+            "name": "Get Blueprint",
+            "description": {
+              "content": "Retrieve a specific blueprint schema by its identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "blueprints",
+                ":blueprintId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "blueprintId",
+                  "description": "(Required) Unique identifier of the blueprint"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b51e0fb7-8f6f-47a2-89be-5a0756d87b32",
+              "name": "Blueprint details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blueprints",
+                    ":blueprintId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "blueprintId",
+                      "description": "(Required) Unique identifier of the blueprint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"properties\": {\n    \"key_0\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    },\n    \"key_1\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    },\n    \"key_2\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    }\n  },\n  \"relations\": {\n    \"key_0\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": true,\n      \"description\": \"string\"\n    },\n    \"key_1\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": true,\n      \"description\": \"string\"\n    },\n    \"key_2\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": false,\n      \"description\": \"string\"\n    }\n  },\n  \"createdAt\": \"1972-04-01T22:26:40.496Z\",\n  \"updatedAt\": \"2025-07-13T22:12:07.511Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39741951-572f-4431-80db-8b163e770ebe",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blueprints",
+                    ":blueprintId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "blueprintId",
+                      "description": "(Required) Unique identifier of the blueprint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0bf21d50-0367-4f22-8eb8-aa951d53ee04",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blueprints",
+                    ":blueprintId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "blueprintId",
+                      "description": "(Required) Unique identifier of the blueprint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "85f1319b-95eb-4002-9d7d-7d992d06cba3",
+          "name": "Update Blueprint",
+          "request": {
+            "name": "Update Blueprint",
+            "description": {
+              "content": "Update an existing blueprint schema.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "blueprints",
+                ":blueprintId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "blueprintId",
+                  "description": "(Required) Unique identifier of the blueprint"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"properties\": {\n    \"key_0\": {\n      \"title\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"format\": \"<string>\"\n    }\n  },\n  \"relations\": {\n    \"key_0\": {\n      \"title\": \"<string>\",\n      \"target\": \"<string>\",\n      \"many\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f1c8258e-2b5a-424e-afcf-410f4e4556e4",
+              "name": "Blueprint updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blueprints",
+                    ":blueprintId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "blueprintId",
+                      "description": "(Required) Unique identifier of the blueprint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"properties\": {\n    \"key_0\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    },\n    \"key_1\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    }\n  },\n  \"relations\": {\n    \"key_0\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": false,\n      \"description\": \"string\"\n    },\n    \"key_1\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": true,\n      \"description\": \"string\"\n    },\n    \"key_2\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": true,\n      \"description\": \"string\"\n    },\n    \"key_3\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": false,\n      \"description\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"properties\": {\n    \"key_0\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    },\n    \"key_1\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    },\n    \"key_2\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    }\n  },\n  \"relations\": {\n    \"key_0\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": true,\n      \"description\": \"string\"\n    },\n    \"key_1\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": true,\n      \"description\": \"string\"\n    },\n    \"key_2\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": false,\n      \"description\": \"string\"\n    }\n  },\n  \"createdAt\": \"1972-04-01T22:26:40.496Z\",\n  \"updatedAt\": \"2025-07-13T22:12:07.511Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89548cc5-e67d-4e6b-b4db-ed1584d84269",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blueprints",
+                    ":blueprintId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "blueprintId",
+                      "description": "(Required) Unique identifier of the blueprint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"properties\": {\n    \"key_0\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    },\n    \"key_1\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    }\n  },\n  \"relations\": {\n    \"key_0\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": false,\n      \"description\": \"string\"\n    },\n    \"key_1\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": true,\n      \"description\": \"string\"\n    },\n    \"key_2\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": true,\n      \"description\": \"string\"\n    },\n    \"key_3\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": false,\n      \"description\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43a61529-9953-4ba6-838c-5b5fa80ef482",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blueprints",
+                    ":blueprintId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "blueprintId",
+                      "description": "(Required) Unique identifier of the blueprint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"properties\": {\n    \"key_0\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    },\n    \"key_1\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    }\n  },\n  \"relations\": {\n    \"key_0\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": false,\n      \"description\": \"string\"\n    },\n    \"key_1\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": true,\n      \"description\": \"string\"\n    },\n    \"key_2\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": true,\n      \"description\": \"string\"\n    },\n    \"key_3\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": false,\n      \"description\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e195a352-cb00-459d-b306-b0d4af80683c",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blueprints",
+                    ":blueprintId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "blueprintId",
+                      "description": "(Required) Unique identifier of the blueprint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"properties\": {\n    \"key_0\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    },\n    \"key_1\": {\n      \"title\": \"string\",\n      \"type\": \"string\",\n      \"description\": \"string\",\n      \"format\": \"string\"\n    }\n  },\n  \"relations\": {\n    \"key_0\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": false,\n      \"description\": \"string\"\n    },\n    \"key_1\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": true,\n      \"description\": \"string\"\n    },\n    \"key_2\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": true,\n      \"description\": \"string\"\n    },\n    \"key_3\": {\n      \"title\": \"string\",\n      \"target\": \"string\",\n      \"many\": false,\n      \"description\": \"string\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aaa8ff19-90d3-4bb1-a7b5-99b3d4b9bc09",
+          "name": "Delete Blueprint",
+          "request": {
+            "name": "Delete Blueprint",
+            "description": {
+              "content": "Delete a blueprint schema. All entities of this blueprint type must be deleted first.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "blueprints",
+                ":blueprintId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "blueprintId",
+                  "description": "(Required) Unique identifier of the blueprint"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "87ceb17c-1a10-4371-80b1-294298c664c0",
+              "name": "Blueprint deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blueprints",
+                    ":blueprintId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "blueprintId",
+                      "description": "(Required) Unique identifier of the blueprint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c3b3e1c6-3c61-4b9b-a9a1-4b2355203b0f",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blueprints",
+                    ":blueprintId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "blueprintId",
+                      "description": "(Required) Unique identifier of the blueprint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "11d8b45c-86ae-40dc-8b0c-1aee7f3f10bb",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "blueprints",
+                    ":blueprintId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "blueprintId",
+                      "description": "(Required) Unique identifier of the blueprint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.rely.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7d9468cb-8d15-4e5c-a968-a18f893e534e",
+    "name": "Rely.io Public Automations Blueprints API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Rely.io Public API provides programmatic access to all features of the Rely.io Internal Developer Portal platform. Full CRUD operations are available for software catalog entities, blueprints, scorecards, self-service actions, and automations. Every action available through the Rely.io web interface can also be performed via this REST API. Authentication uses a long-lived API key (Bearer token) generated in the Rely.io Plugins settings page.\n\nContact Support:\n Name: Rely.io Support\n Email: support@rely.io",
+      "type": "text/plain"
+    }
+  }
+}
