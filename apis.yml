@@ -119,6 +119,8 @@ apis:
   humanURL: https://docs.rely.io/public-api
   baseURL: https://api.rely.io
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
