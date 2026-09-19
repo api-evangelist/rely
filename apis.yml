@@ -54,6 +54,8 @@ apis:
   humanURL: https://docs.rely.io/public-api
   baseURL: https://api.rely.io
   tags:
+  - Automation
+  tags_raw:
   - Automations
   properties:
   - type: OpenAPI
