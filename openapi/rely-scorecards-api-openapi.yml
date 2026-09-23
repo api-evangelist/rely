@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Rely.io Public Automations Scorecards API
+  title: Rely.io Public Scorecards API
   description: The Rely.io Public API provides programmatic access to all features of the Rely.io Internal Developer Portal platform. Full CRUD operations are available for software catalog entities, blueprints, scorecards, self-service actions, and automations. Every action available through the Rely.io web interface can also be performed via this REST API. Authentication uses a long-lived API key (Bearer token) generated in the Rely.io Plugins settings page.
   version: 1.0.0
   contact:
@@ -122,6 +122,14 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    ScorecardId:
+      name: scorecardId
+      in: path
+      required: true
+      description: Unique identifier of the scorecard
+      schema:
+        type: string
   schemas:
     ScorecardRequest:
       type: object
@@ -139,6 +147,22 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ScorecardRule'
+    ScorecardRule:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Rule display name
+        description:
+          type: string
+        level:
+          type: string
+          description: Maturity level (bronze, silver, gold, etc.)
+        condition:
+          type: object
+          description: Rule evaluation condition expression
     Error:
       type: object
       properties:
@@ -170,31 +194,15 @@ components:
         updatedAt:
           type: string
           format: date-time
-    ScorecardRule:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-          description: Rule display name
-        description:
-          type: string
-        level:
-          type: string
-          description: Maturity level (bronze, silver, gold, etc.)
-        condition:
-          type: object
-          description: Rule evaluation condition expression
   responses:
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Invalid request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -205,14 +213,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    ScorecardId:
-      name: scorecardId
-      in: path
-      required: true
-      description: Unique identifier of the scorecard
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

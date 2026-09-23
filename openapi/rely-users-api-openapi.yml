@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Rely.io Public Automations Users API
+  title: Rely.io Public Users API
   description: The Rely.io Public API provides programmatic access to all features of the Rely.io Internal Developer Portal platform. Full CRUD operations are available for software catalog entities, blueprints, scorecards, self-service actions, and automations. Every action available through the Rely.io web interface can also be performed via this REST API. Authentication uses a long-lived API key (Bearer token) generated in the Rely.io Plugins settings page.
   version: 1.0.0
   contact:
@@ -56,19 +56,19 @@ components:
           type: string
           format: email
           description: User's email address
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
     UserInviteResponse:
       type: object
       properties:
         success:
           type: boolean
         message:
+          type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
           type: string
   responses:
     BadRequest:

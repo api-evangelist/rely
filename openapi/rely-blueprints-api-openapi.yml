@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Rely.io Public Automations Blueprints API
+  title: Rely.io Public Blueprints API
   description: The Rely.io Public API provides programmatic access to all features of the Rely.io Internal Developer Portal platform. Full CRUD operations are available for software catalog entities, blueprints, scorecards, self-service actions, and automations. Every action available through the Rely.io web interface can also be performed via this REST API. Authentication uses a long-lived API key (Bearer token) generated in the Rely.io Plugins settings page.
   version: 1.0.0
   contact:
@@ -125,6 +125,25 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    BlueprintProperty:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Display name for the property
+        type:
+          type: string
+          description: JSON Schema type (string, integer, boolean, array, object)
+        description:
+          type: string
+          description: Description of the property
+        enum:
+          type: array
+          items: {}
+          description: Allowed values for enum properties
+        format:
+          type: string
+          description: JSON Schema format (date-time, uri, email, etc.)
     BlueprintRequest:
       type: object
       required:
@@ -146,6 +165,13 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/BlueprintRelation'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
     BlueprintRelation:
       type: object
       properties:
@@ -161,32 +187,6 @@ components:
         description:
           type: string
           description: Description of the relation
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
-    BlueprintProperty:
-      type: object
-      properties:
-        title:
-          type: string
-          description: Display name for the property
-        type:
-          type: string
-          description: JSON Schema type (string, integer, boolean, array, object)
-        description:
-          type: string
-          description: Description of the property
-        enum:
-          type: array
-          items: {}
-          description: Allowed values for enum properties
-        format:
-          type: string
-          description: JSON Schema format (date-time, uri, email, etc.)
     Blueprint:
       type: object
       properties:
@@ -216,14 +216,14 @@ components:
           type: string
           format: date-time
   responses:
-    NotFound:
-      description: Resource not found
+    BadRequest:
+      description: Invalid request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:

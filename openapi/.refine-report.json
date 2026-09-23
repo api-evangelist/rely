@@ -1,12 +1,7 @@
 {
   "provider": "rely",
   "sources": [
-    "rely-automations-api-openapi.yml",
-    "rely-blueprints-api-openapi.yml",
-    "rely-entities-api-openapi.yml",
-    "rely-scorecards-api-openapi.yml",
-    "rely-self-service-actions-api-openapi.yml",
-    "rely-users-api-openapi.yml"
+    "_original/rely-openapi.yml"
   ],
   "outputs": [
     "rely-automations-api-openapi.yml",
@@ -19,6 +14,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "rely-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "rely-automations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rely-blueprints-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rely-entities-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rely-scorecards-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rely-self-service-actions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "rely-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
