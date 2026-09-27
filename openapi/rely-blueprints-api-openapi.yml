@@ -124,6 +124,25 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     BlueprintProperty:
       type: object
@@ -144,6 +163,34 @@ components:
         format:
           type: string
           description: JSON Schema format (date-time, uri, email, etc.)
+    Blueprint:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Globally unique blueprint identifier
+        name:
+          type: string
+          description: User-friendly display name
+        description:
+          type: string
+          description: Optional overview of what this blueprint represents
+        properties:
+          type: object
+          description: JSON Schema-compatible property definitions for entities of this type
+          additionalProperties:
+            $ref: '#/components/schemas/BlueprintProperty'
+        relations:
+          type: object
+          description: Relation definitions linking this blueprint to other blueprints
+          additionalProperties:
+            $ref: '#/components/schemas/BlueprintRelation'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
     BlueprintRequest:
       type: object
       required:
@@ -187,53 +234,6 @@ components:
         description:
           type: string
           description: Description of the relation
-    Blueprint:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Globally unique blueprint identifier
-        name:
-          type: string
-          description: User-friendly display name
-        description:
-          type: string
-          description: Optional overview of what this blueprint represents
-        properties:
-          type: object
-          description: JSON Schema-compatible property definitions for entities of this type
-          additionalProperties:
-            $ref: '#/components/schemas/BlueprintProperty'
-        relations:
-          type: object
-          description: Relation definitions linking this blueprint to other blueprints
-          additionalProperties:
-            $ref: '#/components/schemas/BlueprintRelation'
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-  responses:
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     BlueprintId:
       name: blueprintId

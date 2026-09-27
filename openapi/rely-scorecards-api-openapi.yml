@@ -130,46 +130,26 @@ components:
       description: Unique identifier of the scorecard
       schema:
         type: string
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    ScorecardRequest:
-      type: object
-      required:
-      - name
-      - blueprintId
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        blueprintId:
-          type: string
-        rules:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScorecardRule'
-    ScorecardRule:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-          description: Rule display name
-        description:
-          type: string
-        level:
-          type: string
-          description: Maturity level (bronze, silver, gold, etc.)
-        condition:
-          type: object
-          description: Rule evaluation condition expression
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
     Scorecard:
       type: object
       properties:
@@ -194,25 +174,45 @@ components:
         updatedAt:
           type: string
           format: date-time
-  responses:
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+    ScorecardRule:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Rule display name
+        description:
+          type: string
+        level:
+          type: string
+          description: Maturity level (bronze, silver, gold, etc.)
+        condition:
+          type: object
+          description: Rule evaluation condition expression
+    ScorecardRequest:
+      type: object
+      required:
+      - name
+      - blueprintId
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        blueprintId:
+          type: string
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScorecardRule'
   securitySchemes:
     bearerAuth:
       type: http

@@ -62,25 +62,20 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    AutomationRequest:
-      type: object
-      required:
-      - name
-      - trigger
-      - action
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        trigger:
-          type: object
-        action:
-          type: object
-        enabled:
-          type: boolean
-          default: true
     Automation:
       type: object
       properties:
@@ -108,19 +103,24 @@ components:
           type: string
         code:
           type: string
-  responses:
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    AutomationRequest:
+      type: object
+      required:
+      - name
+      - trigger
+      - action
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        trigger:
+          type: object
+        action:
+          type: object
+        enabled:
+          type: boolean
+          default: true
   securitySchemes:
     bearerAuth:
       type: http
