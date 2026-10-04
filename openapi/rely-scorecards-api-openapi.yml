@@ -122,7 +122,50 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    ScorecardId:
+      name: scorecardId
+      in: path
+      required: true
+      description: Unique identifier of the scorecard
+      schema:
+        type: string
   schemas:
+    ScorecardRule:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Rule display name
+        description:
+          type: string
+        level:
+          type: string
+          description: Maturity level (bronze, silver, gold, etc.)
+        condition:
+          type: object
+          description: Rule evaluation condition expression
     Error:
       type: object
       properties:
@@ -170,49 +213,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ScorecardRule'
-    ScorecardRule:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-          description: Rule display name
-        description:
-          type: string
-        level:
-          type: string
-          description: Maturity level (bronze, silver, gold, etc.)
-        condition:
-          type: object
-          description: Rule evaluation condition expression
-  parameters:
-    ScorecardId:
-      name: scorecardId
-      in: path
-      required: true
-      description: Unique identifier of the scorecard
-      schema:
-        type: string
-  responses:
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

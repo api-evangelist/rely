@@ -123,6 +123,24 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    ActionRequest:
+      type: object
+      required:
+      - name
+      - blueprintId
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        blueprintId:
+          type: string
+        trigger:
+          type: string
+        userInputs:
+          type: object
+        invocationMethod:
+          type: object
     Error:
       type: object
       properties:
@@ -159,32 +177,6 @@ components:
         updatedAt:
           type: string
           format: date-time
-    ActionRequest:
-      type: object
-      required:
-      - name
-      - blueprintId
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        blueprintId:
-          type: string
-        trigger:
-          type: string
-        userInputs:
-          type: object
-        invocationMethod:
-          type: object
-  parameters:
-    ActionId:
-      name: actionId
-      in: path
-      required: true
-      description: Unique identifier of the self-service action
-      schema:
-        type: string
   responses:
     BadRequest:
       description: Invalid request
@@ -204,6 +196,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    ActionId:
+      name: actionId
+      in: path
+      required: true
+      description: Unique identifier of the self-service action
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http
