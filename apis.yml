@@ -41,6 +41,7 @@ tags:
   - Software Catalog
   - Service Catalog
   - Engineering Scorecards
+  - Developer Portal
 url: https://raw.githubusercontent.com/api-evangelist/rely/refs/heads/main/apis.yml
 created: '2026-03-27'
 modified: '2026-05-19'
@@ -145,6 +146,9 @@ apis:
   - type: GettingStarted
     url: https://docs.rely.io/getting-started
 common:
+  - type: CapabilityMap
+    url: capabilities/rely-capability-edges.yml
+    name: Rely.io Business Capability Map
   - type: AgenticAccess
     url: agentic-access/rely-agentic-access.yml
   - type: DomainSecurity
