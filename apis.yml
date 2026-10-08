@@ -146,6 +146,12 @@ apis:
   - type: GettingStarted
     url: https://docs.rely.io/getting-started
 common:
+  - type: Plans
+    url: plans/rely-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/rely-rate-limits.yml
+  - type: FinOps
+    url: finops/rely-finops.yml
   - type: CapabilityMap
     url: capabilities/rely-capability-edges.yml
     name: Rely.io Business Capability Map
