@@ -124,45 +124,43 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    BlueprintProperty:
+    BlueprintRelation:
       type: object
       properties:
         title:
           type: string
-          description: Display name for the property
-        type:
+          description: Display name for the relation
+        target:
           type: string
-          description: JSON Schema type (string, integer, boolean, array, object)
+          description: Target blueprint identifier
+        many:
+          type: boolean
+          description: Whether this is a one-to-many relation
         description:
           type: string
-          description: Description of the property
-        enum:
-          type: array
-          items: {}
-          description: Allowed values for enum properties
-        format:
+          description: Description of the relation
+    BlueprintRequest:
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
           type: string
-          description: JSON Schema format (date-time, uri, email, etc.)
+          description: Globally unique blueprint identifier
+        name:
+          type: string
+        description:
+          type: string
+        properties:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/BlueprintProperty'
+        relations:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/BlueprintRelation'
     Blueprint:
       type: object
       properties:
@@ -191,21 +189,25 @@ components:
         updatedAt:
           type: string
           format: date-time
-    BlueprintRelation:
+    BlueprintProperty:
       type: object
       properties:
         title:
           type: string
-          description: Display name for the relation
-        target:
+          description: Display name for the property
+        type:
           type: string
-          description: Target blueprint identifier
-        many:
-          type: boolean
-          description: Whether this is a one-to-many relation
+          description: JSON Schema type (string, integer, boolean, array, object)
         description:
           type: string
-          description: Description of the relation
+          description: Description of the property
+        enum:
+          type: array
+          items: {}
+          description: Allowed values for enum properties
+        format:
+          type: string
+          description: JSON Schema format (date-time, uri, email, etc.)
     Error:
       type: object
       properties:
@@ -213,27 +215,25 @@ components:
           type: string
         code:
           type: string
-    BlueprintRequest:
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: string
-          description: Globally unique blueprint identifier
-        name:
-          type: string
-        description:
-          type: string
-        properties:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/BlueprintProperty'
-        relations:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/BlueprintRelation'
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     BlueprintId:
       name: blueprintId

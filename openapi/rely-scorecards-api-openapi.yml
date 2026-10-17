@@ -122,33 +122,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    ScorecardId:
-      name: scorecardId
-      in: path
-      required: true
-      description: Unique identifier of the scorecard
-      schema:
-        type: string
   schemas:
     ScorecardRule:
       type: object
@@ -213,6 +186,33 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ScorecardRule'
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    ScorecardId:
+      name: scorecardId
+      in: path
+      required: true
+      description: Unique identifier of the scorecard
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

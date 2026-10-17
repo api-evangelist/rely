@@ -122,32 +122,15 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    ActionId:
+      name: actionId
+      in: path
+      required: true
+      description: Unique identifier of the self-service action
+      schema:
+        type: string
   schemas:
-    ActionRequest:
-      type: object
-      required:
-      - name
-      - blueprintId
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        blueprintId:
-          type: string
-        trigger:
-          type: string
-        userInputs:
-          type: object
-        invocationMethod:
-          type: object
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-        code:
-          type: string
     Action:
       type: object
       properties:
@@ -177,9 +160,34 @@ components:
         updatedAt:
           type: string
           format: date-time
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+    ActionRequest:
+      type: object
+      required:
+      - name
+      - blueprintId
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        blueprintId:
+          type: string
+        trigger:
+          type: string
+        userInputs:
+          type: object
+        invocationMethod:
+          type: object
   responses:
-    BadRequest:
-      description: Invalid request
+    Unauthorized:
+      description: Missing or invalid API key
       content:
         application/json:
           schema:
@@ -190,20 +198,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key
+    BadRequest:
+      description: Invalid request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    ActionId:
-      name: actionId
-      in: path
-      required: true
-      description: Unique identifier of the self-service action
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http
