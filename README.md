@@ -1,4 +1,4 @@
-# Rely.io (rely)
+# Rely.io
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,65 +66,164 @@
 
 Rely.io is an internal developer portal that aggregates engineering data, provides software catalogs with blueprints and entities, engineering scorecards, self-service developer actions, and workflow automation for platform engineering teams. The platform integrates with CI/CD pipelines, incident management, observability, and cloud providers to create a centralized service catalog with real-time data. Rely.io's Public REST API provides full CRUD access to blueprints, entities, scorecards, self-service actions, and automations using Bearer token authentication.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/rely/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/rely/refs/heads/main/apis.yml)
+**Areas:** Developer Experience · Internal Developer Portal · Platform Engineering · Software Catalog · Service Catalog · Engineering Scorecards · Developer Portal
 
-## Scope
+## Rely.io on APIs.io
 
-- **Type:** Index
+Everything profiled for Rely.io is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/rely/](https://apis.io/providers/rely/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (6)
 
-- Developer Experience
-- Internal Developer Portal
-- Platform Engineering
-- Software Catalog
-- Service Catalog
-- Engineering Scorecards
+- [Rely.io Automations API](https://apis.io/apis/rely/rely-automations-api/) — Manage automation rules that trigger workflows based on catalog entity changes or external events via plugin integrations.
+- [Rely.io Blueprints API](https://apis.io/apis/rely/rely-blueprints-api/) — Manage blueprint schemas that define the structure and attributes of catalog entities such as services, teams, and resources.
+- [Rely.io Entities API](https://apis.io/apis/rely/rely-entities-api/) — Manage catalog entity instances — the individual services, teams, deployments, and resources tracked in the software catalog.
+- [Rely.io Scorecards API](https://apis.io/apis/rely/rely-scorecards-api/) — Define and manage engineering scorecards that track adoption of standards and production readiness across services.
+- [Rely.io Self-Service Actions API](https://apis.io/apis/rely/rely-self-service-actions-api/) — Configure developer self-service actions that automate infrastructure provisioning, service scaffolding, and deployment workflows.
+- [Rely.io Users API](https://apis.io/apis/rely/rely-users-api/) — Manage user accounts and invitations in the organization.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-27
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Rely.io Public API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-Full CRUD REST API for managing blueprints, entities, scorecards, self-service actions, and automations in the Rely.io internal developer portal. Authentication uses a long-lived Bearer API key.
+- [Rely Agentic Access](https://apis.io/agentic-access/rely/rely-agentic-access/)
 
-- **Human URL:** [https://docs.rely.io/public-api](https://docs.rely.io/public-api)
-- **Base URL:** `https://api.rely.io`
+#### JSON Schema (2)
 
-#### Tags
+The data models the API reads and writes.
 
-- Developer Experience
-- Internal Developer Portal
-- Platform Engineering
-- Software Catalog
-- Scorecards
-- Self-Service Actions
+- [Rely.io Blueprint](https://apis.io/schemas/rely/rely-blueprint/)
+- [Rely.io Entity](https://apis.io/schemas/rely/rely-entity/)
 
-#### Properties
+#### JSON Structure (1)
 
-- [Documentation](https://docs.rely.io/public-api)
-- [OpenAPI](openapi/rely-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/rely.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/rely.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Getting Started](https://docs.rely.io/getting-started)
+Data models expressed in JSON Structure.
 
-## Common Properties
+- [Rely Blueprint Structure](https://apis.io/json-structure/rely/rely-blueprint-structure/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Rely Context](https://apis.io/jsonld/rely/rely-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Rely Vocabulary](https://apis.io/vocabularies/rely/rely-vocabulary/)
+
+#### Examples (2)
+
+Example requests and responses.
+
+- [Rely Create Entity Example](https://apis.io/examples/rely/rely-create-entity-example/)
+- [Rely List Blueprints Example](https://apis.io/examples/rely/rely-list-blueprints-example/)
+
+#### Collections (7)
+
+Postman and Open Collection request collections.
+
+- [Rely.io Public API](https://apis.io/collections/rely/open-rely/)
+- [Rely.io Public Automations API](https://apis.io/collections/rely/open-rely-automations-api/)
+- [Rely.io Public Automations Blueprints API](https://apis.io/collections/rely/open-rely-blueprints-api/)
+- [Rely.io Public Automations Entities API](https://apis.io/collections/rely/open-rely-entities-api/)
+- [Rely.io Public Automations Scorecards API](https://apis.io/collections/rely/open-rely-scorecards-api/)
+- [Rely.io Public Automations Self-Service Actions API](https://apis.io/collections/rely/open-rely-self-service-actions-api/)
+- [Rely.io Public Automations Users API](https://apis.io/collections/rely/open-rely-users-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Rely.io — jsonschema rules](https://apis.io/rules/rely/rely-jsonschema-spectral-rules/)
+- [Rely.io API Rules](https://apis.io/rules/rely/rely-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Rely Authentication](https://apis.io/security/rely/rely-authentication/)
+- [Rely Domain Security](https://apis.io/security/rely/rely-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Rely Plans Pricing](https://apis.io/plans/rely/rely-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Rely Rate Limits](https://apis.io/rate-limits/rely/rely-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Rely Finops](https://apis.io/finops/rely/rely-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.rely.io)
 - [Documentation](https://docs.rely.io)
-- [GitHub Organization](https://github.com/Rely-io)
-- [Git Hub  S D K](https://github.com/Rely-io/galaxy-oss)
-- [Sign Up](https://app.rely.io/register)
-- [Demo](https://demo.rely.io)
-- [Support](mailto:support@rely.io)
-- [LinkedIn](https://www.linkedin.com/company/rely-io)
-- [L L Ms Txt](https://docs.rely.io/llms.txt)
+- [GitHub](https://github.com/Rely-io)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 33.8** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 59.6 |
+| Contract governance | 9.8 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 26.2 |
+| Access clarity | 21.1 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/rely/](https://apis.io/providers/rely/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Rely.io: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/rely/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
